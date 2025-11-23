@@ -1,17 +1,17 @@
 export const navMenus = [
   {
     id: 1,
-    name: "Home",
+    name: "Courses",
     path: "/",
   },
   {
     id: 2,
-    name: "Settings",
-    path: "/a",
+    name: "Pricing",
+    path: "/pricing",
   },
   {
     id: 3,
-    name: "Courses",
-    path: "/b",
+    name: "Projects",
+    path: "/projects",
   },
 ];
