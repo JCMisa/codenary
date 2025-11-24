@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -28,8 +29,12 @@ const Hero = () => {
           Beginner friendly coding courses and projects
         </h5>
 
-        <Button variant={"pixel"} className="font-game text-3xl p-6 mt-7">
-          START LEARNING
+        <Button
+          asChild
+          variant={"pixel"}
+          className="font-game text-3xl p-6 mt-7"
+        >
+          <Link href={"/dashboard"}>START LEARNING</Link>
         </Button>
       </div>
     </section>

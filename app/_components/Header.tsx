@@ -7,12 +7,15 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
 import { courses } from "@/constants";
+import { currentUser } from "@clerk/nextjs/server";
+import UserButtonClient from "@/components/custom/UserButtonClient";
+import Link from "next/link";
 
-const Header = () => {
+const Header = async () => {
+  const user = await currentUser();
+
   return (
     <header className="p-4 max-w-7xl flex justify-between items-center w-full">
       <div className="flex gap-2 items-center">
@@ -44,28 +47,33 @@ const Header = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink>
-              <Link href={"/projects"}>Projects</Link>
-            </NavigationMenuLink>
+            <NavigationMenuLink href={"/projects"}>Projects</NavigationMenuLink>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink>
-              <Link href={"/pricing"}>Pricing</Link>
-            </NavigationMenuLink>
+            <NavigationMenuLink href={"/pricing"}>Pricing</NavigationMenuLink>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink>
-              <Link href={"/contact"}>Contact Us</Link>
+            <NavigationMenuLink href={"/contact"}>
+              Contact Us
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
-      <Button className="font-game text-2xl" variant={"pixel"}>
-        Signup
-      </Button>
+      {user ? (
+        <div className="flex items-center gap-4">
+          <Button asChild className="font-game text-2xl" variant={"pixel"}>
+            <Link href={"/dashboard"}>Dashboard</Link>
+          </Button>
+          <UserButtonClient />
+        </div>
+      ) : (
+        <Button asChild className="font-game text-2xl" variant={"pixel"}>
+          <Link href={"/sign-in"}>Signin</Link>
+        </Button>
+      )}
     </header>
   );
 };

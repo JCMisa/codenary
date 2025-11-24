@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@clerk/elements": "^0.23.85",
+    "@clerk/nextjs": "^6.35.4",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-slot": "^1.2.4",
     "@tabler/icons-react": "^3.35.0",
