@@ -1,9 +1,5 @@
-import HeroSection from "@/components/custom/landing-page/hero/HeroSection";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  return (
-    <main className="p-5">
-      <HeroSection />
-    </main>
-  );
+  return <Button>hello</Button>;
 }

@@ -8,17 +8,6 @@
   --color-foreground: var(--foreground);
 
   --color-primary: var(--primary);
-  --color-primary-50: var(--primary-50);
-  --color-primary-100: var(--primary-100);
-  --color-primary-200: var(--primary-200);
-  --color-primary-300: var(--primary-300);
-  --color-primary-400: var(--primary-400);
-  --color-primary-500: var(--primary-500);
-  --color-primary-600: var(--primary-600);
-  --color-primary-700: var(--primary-700);
-  --color-primary-800: var(--primary-800);
-  --color-primary-900: var(--primary-900);
-  --color-primary-950: var(--primary-950);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -56,38 +45,31 @@
   --radius-xl: calc(var(--radius) + 4px);
   --animate-shine: shine var(--duration) infinite linear;
   @keyframes shine {
-  0% {
-    background-position: 0% 0%;
+    0% {
+      background-position: 0% 0%;
     }
-  50% {
-    background-position: 100% 100%;
+    50% {
+      background-position: 100% 100%;
     }
-  to {
-    background-position: 0% 0%;
+    to {
+      background-position: 0% 0%;
     }
   }
-  --animate-line-shadow: line-shadow 15s linear infinite
-;
+  --animate-line-shadow: line-shadow 15s linear infinite;
   @keyframes line-shadow {
-  0% {
-    background-position: 0 0;}
-  100% {
-    background-position: 100% -100%;}}}
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% -100%;
+    }
+  }
+}
 
 :root {
-  --primary: #0f0f0f;
-  --primary-100: #1c1c1c;
-  --primary-200: #3c3c3c;
-  --primary-300: #5a5a5a;
-  --primary-400: #7a7a7a;
-  --primary-500: #9b9b9b;
-  --primary-600: #bfbfbf;
-  --primary-700: #dcdcdc;
-  --primary-800: #f4f4f4;
+  --primary: oklch(0.205 0 0);
 
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -116,20 +98,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
 }
 
 .dark {
-  --primary: #f4f4f4;
-  --primary-100: #dcdcdc;
-  --primary-200: #bfbfbf;
-  --primary-300: #9b9b9b;
-  --primary-400: #7a7a7a;
-  --primary-500: #5a5a5a;
-  --primary-600: #3c3c3c;
-  --primary-700: #1c1c1c;
-  --primary-800: #0f0f0f;
+  --primary: oklch(0.922 0 0);
 
-  --background: #000000;
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
