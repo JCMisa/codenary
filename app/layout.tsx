@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/custom/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
+import SyncUserProvider from "@/providers/SyncUserProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,7 +50,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <SyncUserProvider>{children}</SyncUserProvider>
             <Toaster />
           </ThemeProvider>
         </body>
