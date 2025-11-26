@@ -13,7 +13,11 @@ import { currentUser } from "@clerk/nextjs/server";
 import UserButtonClient from "@/components/custom/UserButtonClient";
 import Link from "next/link";
 
-const Header = async () => {
+interface HeaderProps {
+  headerFor?: "home" | "dashboard";
+}
+
+const Header = async ({ headerFor = "home" }: HeaderProps) => {
   const user = await currentUser();
 
   return (
@@ -63,12 +67,26 @@ const Header = async () => {
       </NavigationMenu>
 
       {user ? (
-        <div className="flex items-center gap-4">
-          <Button asChild className="font-game text-2xl" variant={"pixel"}>
-            <Link href={"/dashboard"}>Dashboard</Link>
-          </Button>
-          <UserButtonClient />
-        </div>
+        headerFor === "home" ? (
+          <div className="flex items-center gap-4">
+            <Button asChild className="font-game text-2xl" variant={"pixel"}>
+              <Link href={"/dashboard"}>Dashboard</Link>
+            </Button>
+            <UserButtonClient />
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <UserButtonClient />
+            <div className="flex flex-col items-start">
+              <p className="text-sm font-bold">
+                {user.fullName || `${user.firstName} ${user.lastName}`}
+              </p>
+              <span className="text-muted-foreground text-xs">
+                {user.primaryEmailAddress?.emailAddress}
+              </span>
+            </div>
+          </div>
+        )
       ) : (
         <Button asChild className="font-game text-2xl" variant={"pixel"}>
           <Link href={"/sign-in"}>Signin</Link>
