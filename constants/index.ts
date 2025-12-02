@@ -54,3 +54,30 @@ export const courses = [
     path: "/course/9/detail",
   },
 ];
+
+export const exploreMoreOptions = [
+  {
+    id: 1,
+    title: "Quizz Pack",
+    desc: "Practice what you learned with bite-sized code challenges.",
+    icon: "/tree.png",
+  },
+  {
+    id: 2,
+    title: "Video Courses",
+    desc: "Learn with structured video lessons taught step-by-step.",
+    icon: "/game.png",
+  },
+  {
+    id: 3,
+    title: "Community Project",
+    desc: "Build real-world apps by collaborating with the community.",
+    icon: "/growth.png",
+  },
+  {
+    id: 4,
+    title: "Explore Apps",
+    desc: "Explore prebuild app which you can try and build.",
+    icon: "/start-up.png",
+  },
+];

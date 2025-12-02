@@ -13,7 +13,7 @@ const WelcomeBanner = async () => {
         height={120}
       />
 
-      <h2 className="font-game text-2xl p-4 border bg-zinc-800 rounded-lg rounded-bl-none">
+      <h2 className="font-game text-2xl p-4 border bg-zinc-200 dark:bg-zinc-800 rounded-lg rounded-bl-none">
         Welcome Back <span className="text-yellow-500">{user.name}</span>, Start
         Learning Something New!
       </h2>
