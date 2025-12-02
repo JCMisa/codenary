@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const EnrolledCourses = () => {
   const enrolledCourses = [];
@@ -16,9 +17,10 @@ const EnrolledCourses = () => {
           <Button
             variant={"pixel"}
             size={"lg"}
-            className="font-game cursor-pointer text-lg "
+            className="font-game cursor-pointer text-lg"
+            asChild
           >
-            Browse All Courses
+            <Link href={"/courses"}>Browse All Courses</Link>
           </Button>
         </div>
       ) : (

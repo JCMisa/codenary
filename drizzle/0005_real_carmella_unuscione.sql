@@ -1,0 +1,1 @@
+ALTER TABLE "courses" RENAME COLUMN "title" TO "title2";

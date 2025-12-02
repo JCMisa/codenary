@@ -7,7 +7,7 @@ import { usersTable } from "@/config/schema";
 import { eq } from "drizzle-orm";
 
 // --------------------------- Helper Functions ---------------------------
-const getSessionUserId = async (): Promise<string> => {
+export const getSessionUserId = async (): Promise<string> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthenticated");
 

@@ -15,3 +15,16 @@ declare interface UserType {
   createdAt: Date;
   updatedAt: Date;
 }
+
+declare interface CourseType {
+  id: number;
+  courseId: string;
+  createdBy: string;
+  title: string;
+  desc?: string | null;
+  bannerImage?: string | null;
+  level: string;
+  tags: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
