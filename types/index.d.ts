@@ -12,6 +12,7 @@ declare interface UserType {
   points: number;
   subscription?: string | null;
   role: string;
+  enrolledCourses?: [{ courseId: string }] | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,6 +26,25 @@ declare interface CourseType {
   bannerImage?: string | null;
   level: string;
   tags: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+declare interface CourseChapterType {
+  id: number;
+  courseChapterId: string;
+  courseId: string;
+  name: string;
+  desc?: string | null;
+  exercises: [
+    {
+      name: string;
+      slug: string;
+      xp: number;
+      difficulty: string;
+    }
+  ];
+  position: number;
   createdAt: Date;
   updatedAt: Date;
 }

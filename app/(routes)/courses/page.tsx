@@ -7,7 +7,7 @@ const Courses = () => {
     <main className="flex flex-col items-center pb-5">
       <Header headerFor="dashboard" />
 
-      <section className="w-full ">
+      <section className="w-full">
         <div className="relative">
           <Image
             src={"/course-banner.gif"}

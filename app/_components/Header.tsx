@@ -12,6 +12,7 @@ import { courses } from "@/constants";
 import { currentUser } from "@clerk/nextjs/server";
 import UserButtonClient from "@/components/custom/UserButtonClient";
 import Link from "next/link";
+import ModeToggle from "@/components/custom/ModeToggle";
 
 interface HeaderProps {
   headerFor?: "home" | "dashboard";
@@ -24,7 +25,7 @@ const Header = async ({ headerFor = "home" }: HeaderProps) => {
     <header className="p-4 max-w-7xl flex justify-between items-center w-full">
       <div className="flex gap-2 items-center">
         <Image src={"/logo.png"} alt="logo" width={40} height={40} />
-        <h2 className="font-bold text-4xl tracking-widest font-game">
+        <h2 className="font-bold text-4xl tracking-widest font-game text-yellow-500 dark:text-white">
           Codenary
         </h2>
       </div>
@@ -66,32 +67,36 @@ const Header = async ({ headerFor = "home" }: HeaderProps) => {
         </NavigationMenuList>
       </NavigationMenu>
 
-      {user ? (
-        headerFor === "home" ? (
-          <div className="flex items-center gap-4">
-            <Button asChild className="font-game text-2xl" variant={"pixel"}>
-              <Link href={"/dashboard"}>Dashboard</Link>
-            </Button>
-            <UserButtonClient />
-          </div>
-        ) : (
-          <div className="flex items-center gap-2">
-            <UserButtonClient />
-            <div className="flex flex-col items-start">
-              <p className="text-sm font-bold">
-                {user.fullName || `${user.firstName} ${user.lastName}`}
-              </p>
-              <span className="text-muted-foreground text-xs">
-                {user.primaryEmailAddress?.emailAddress}
-              </span>
+      <div className="flex items-center justify-center gap-4">
+        <ModeToggle className="cursor-pointer" />
+
+        {user ? (
+          headerFor === "home" ? (
+            <div className="flex items-center gap-4">
+              <Button asChild className="font-game text-2xl" variant={"pixel"}>
+                <Link href={"/dashboard"}>Dashboard</Link>
+              </Button>
+              <UserButtonClient />
             </div>
-          </div>
-        )
-      ) : (
-        <Button asChild className="font-game text-2xl" variant={"pixel"}>
-          <Link href={"/sign-in"}>Signin</Link>
-        </Button>
-      )}
+          ) : (
+            <div className="flex items-center gap-2">
+              <UserButtonClient />
+              <div className="flex flex-col items-start">
+                <p className="text-sm font-bold">
+                  {user.fullName || `${user.firstName} ${user.lastName}`}
+                </p>
+                <span className="text-muted-foreground text-xs">
+                  {user.primaryEmailAddress?.emailAddress}
+                </span>
+              </div>
+            </div>
+          )
+        ) : (
+          <Button asChild className="font-game text-2xl" variant={"pixel"}>
+            <Link href={"/sign-in"}>Signin</Link>
+          </Button>
+        )}
+      </div>
     </header>
   );
 };

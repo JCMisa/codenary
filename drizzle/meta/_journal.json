@@ -71,6 +71,20 @@
       "when": 1764657195003,
       "tag": "0009_mighty_james_howlett",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1765176232109,
+      "tag": "0010_shallow_sabra",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1765179027367,
+      "tag": "0011_chemical_quasar",
+      "breakpoints": true
     }
   ]
 }

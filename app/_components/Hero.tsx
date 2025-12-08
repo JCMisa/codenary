@@ -14,7 +14,7 @@ const Hero = () => {
       />
 
       <div className="absolute w-full flex flex-col items-center mt-24">
-        <h2 className="font-bold text-7xl font-game">Start Your</h2>
+        <h2 className="font-bold text-7xl font-game text-white ">Start Your</h2>
         <h1
           className="font=bold text-8xl font-game text-yellow-400"
           style={{
@@ -25,7 +25,7 @@ const Hero = () => {
           Coding Adventure
         </h1>
 
-        <h5 className="mt-5 font-game text-3xl">
+        <h5 className="mt-5 font-game text-3xl text-white">
           Beginner friendly coding courses and projects
         </h5>
 

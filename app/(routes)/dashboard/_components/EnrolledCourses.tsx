@@ -1,13 +1,23 @@
 import { Button } from "@/components/ui/button";
+import { getAuthenticatedUser } from "@/lib/utils/getAuthUser";
 import Image from "next/image";
 import Link from "next/link";
 
-const EnrolledCourses = () => {
+const EnrolledCourses = async () => {
   const enrolledCourses = [];
+
+  const user = await getAuthenticatedUser();
 
   return (
     <div className="mt-8">
-      <h2 className="font-game text-3xl mb-2">Your Enrolled Courses</h2>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-2 mb-2">
+        <h2 className="font-game text-3xl ">Your Enrolled Courses</h2>
+        {["admin", "teacher"].includes(user.role) && (
+          <Button asChild className="font-game" variant="pixel">
+            <Link href={"/courses/create"}>Create Course</Link>
+          </Button>
+        )}
+      </div>
       {enrolledCourses.length === 0 ? (
         <div className="flex flex-col items-center gap-3 p-7 border rounded-2xl bg-zinc-100 dark:bg-zinc-900">
           <Image src={"/books.png"} alt="book" width={90} height={90} />
