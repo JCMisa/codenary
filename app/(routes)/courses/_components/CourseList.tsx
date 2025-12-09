@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { getAllCourses } from "@/lib/actions/courses";
 import { ChartNoAxesColumnIncreasingIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const CourseList = async () => {
@@ -20,7 +21,8 @@ const CourseList = async () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-3">
       {courses.data.map((course: CourseType) => (
-        <div
+        <Link
+          href={`/courses/${course.courseId}`}
           key={course.id}
           className="border-4 rounded-xl cursor-pointer hover:scale-95 transition-all duration-300 hover:bg-zinc-100 dark:hover:bg-zinc-900"
         >
@@ -41,7 +43,7 @@ const CourseList = async () => {
               {course.level}
             </Badge>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

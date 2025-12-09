@@ -64,8 +64,8 @@ const CreateCourseForm = () => {
         // Optional: Small delay to let user read the toast
         setTimeout(() => {
           // Redirect to the new course or course list
-          router.push(`/courses`);
-          // Or: router.push(`/courses/${result.data.courseId}`);
+          // router.push(`/courses`);
+          router.push(`/courses/${result.data?.courseId}`);
         }, 1000);
       }
     });

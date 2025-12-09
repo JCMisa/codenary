@@ -30,20 +30,20 @@ declare interface CourseType {
   updatedAt: Date;
 }
 
+declare interface ExerciseType {
+  name: string;
+  slug: string;
+  xp: number;
+  difficulty: string;
+}
+
 declare interface CourseChapterType {
   id: number;
   courseChapterId: string;
   courseId: string;
   name: string;
   desc?: string | null;
-  exercises: [
-    {
-      name: string;
-      slug: string;
-      xp: number;
-      difficulty: string;
-    }
-  ];
+  exercises: ExerciseType[];
   position: number;
   createdAt: Date;
   updatedAt: Date;
