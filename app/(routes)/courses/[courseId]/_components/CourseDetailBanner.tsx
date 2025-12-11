@@ -3,8 +3,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeftIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import EditCourseTitle from "./EditCourseTitle";
+import DeleteCourse from "./DeleteCourse";
+import EditCourseDescription from "./EditCourseDescription";
 
-const CourseDetailBanner = ({ course }: { course: CourseType }) => {
+const CourseDetailBanner = ({
+  course,
+  user,
+}: {
+  course: CourseType;
+  user: UserType;
+}) => {
   return (
     <section>
       {course.bannerImage ? (
@@ -24,11 +33,38 @@ const CourseDetailBanner = ({ course }: { course: CourseType }) => {
               <ArrowLeftIcon className="size-4" />
               Back to Courses
             </Link>
-            <h2 className="text-6xl capitalize">{course.title}</h2>
-            <p className="text-3xl mt-3">{course.desc}</p>
-            <Button className="text-2xl mt-7" size={"lg"} variant={"pixel"}>
-              Enroll Now
-            </Button>
+            <div className="flex items-start">
+              <h2 className="text-6xl capitalize">{course.title}</h2>
+              {(course.createdBy === user.email || user.role === "admin") && (
+                <EditCourseTitle
+                  courseTitle={course.title}
+                  courseId={course.courseId}
+                />
+              )}
+            </div>
+
+            <div className="flex items-start">
+              <p className="text-3xl mt-3">{course.desc}</p>
+              {(course.createdBy === user.email || user.role === "admin") && (
+                <EditCourseDescription
+                  courseDescription={course.desc}
+                  courseId={course.courseId}
+                />
+              )}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center mt-7 gap-5">
+              <Button className="text-2xl " size={"lg"} variant={"pixel"}>
+                Enroll Now
+              </Button>
+
+              {(course.createdBy === user.email || user.role === "admin") && (
+                <DeleteCourse
+                  courseTitle={course.title}
+                  courseId={course.courseId}
+                />
+              )}
+            </div>
           </div>
         </div>
       ) : (

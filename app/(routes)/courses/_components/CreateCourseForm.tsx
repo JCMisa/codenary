@@ -28,6 +28,7 @@ import { toast } from "sonner";
 import { LoaderCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createCourse } from "@/lib/actions/courses";
+import { showConfetti } from "@/lib/utils";
 
 const CreateCourseForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -60,6 +61,7 @@ const CreateCourseForm = () => {
       // 3. Success! Show toast AND Redirect
       if (result.data) {
         toast.success("Course created successfully!");
+        showConfetti();
 
         // Optional: Small delay to let user read the toast
         setTimeout(() => {

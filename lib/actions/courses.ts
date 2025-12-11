@@ -3,7 +3,7 @@
 import { db } from "@/config/db";
 import { courseChaptersTable, coursesTable } from "@/config/schema";
 import { slugify, withErrorHandling } from "../utils";
-import { revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { formSchema, FormValues } from "../zod/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { randomUUID } from "crypto";
@@ -24,13 +24,6 @@ export const getAllCourses = unstable_cache(
     tags: ["courses"], // Tag for manual revalidation later
   }
 );
-
-// export async function createCourse(data) {
-//   // ... insert into db ...
-
-//   // Purge the cache so the new course appears immediately
-//   revalidateTag('courses');
-// }
 
 export const createCourse = withErrorHandling(async (values: FormValues) => {
   // ... Validation and Auth steps (Same as before) ...
@@ -95,4 +88,65 @@ export const createCourse = withErrorHandling(async (values: FormValues) => {
 
   revalidateTag("courses", "");
   return { courseId: newCourseId };
+});
+
+export const updateCourseTitle = withErrorHandling(
+  async (newTitle: string, courseId: string) => {
+    if (!courseId && newTitle.trim() === "") {
+      throw new Error(
+        "Failed to update course title. Course new title is required."
+      );
+    }
+
+    const data = await db
+      .update(coursesTable)
+      .set({
+        title: newTitle,
+      })
+      .where(eq(coursesTable.courseId, courseId));
+
+    if (data) {
+      revalidatePath(`/courses/${courseId}`);
+      return { success: true };
+    }
+
+    return { success: false };
+  }
+);
+
+export const updateCourseDesc = withErrorHandling(
+  async (newDescription: string, courseId: string) => {
+    if (!courseId && newDescription.trim() === "") {
+      throw new Error(
+        "Failed to update course description. Course new description is required."
+      );
+    }
+
+    const data = await db
+      .update(coursesTable)
+      .set({
+        desc: newDescription,
+      })
+      .where(eq(coursesTable.courseId, courseId));
+
+    if (data) {
+      revalidatePath(`/courses/${courseId}`);
+      return { success: true };
+    }
+
+    return { success: false };
+  }
+);
+
+export const deleteCourse = withErrorHandling(async (courseId: string) => {
+  const data = await db
+    .delete(coursesTable)
+    .where(eq(coursesTable.courseId, courseId));
+
+  if (data) {
+    revalidateTag("courses", "");
+    return { success: true };
+  }
+
+  return { success: false };
 });
