@@ -9,6 +9,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface CourseChaptersProps {
   course: CourseType;
@@ -45,7 +50,7 @@ const CourseChapters = async ({ course }: CourseChaptersProps) => {
   }
 
   return (
-    <div className="p-5 border-4 rounded-2xl">
+    <section className="p-5 border-4 rounded-2xl">
       {chapters.map((chapter, index) => {
         const exercises: ExerciseType[] = chapter.exercises as ExerciseType[];
 
@@ -76,7 +81,17 @@ const CourseChapters = async ({ course }: CourseChaptersProps) => {
                               </h2>
                               <h2 className="text-3xl">{exercise.name}</h2>
                             </div>
-                            <Button variant={"pixelDisabled"}>***</Button>
+
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant={"pixelDisabled"}>***</Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="text-lg font-game">
+                                  Please Enroll First
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
                           </div>
                         )
                       )
@@ -92,7 +107,7 @@ const CourseChapters = async ({ course }: CourseChaptersProps) => {
           </Accordion>
         );
       })}
-    </div>
+    </section>
   );
 };
 

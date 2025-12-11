@@ -13,7 +13,7 @@ const UpgradeToPro = () => {
 
       <Button
         variant={"pixel"}
-        className="font-game cursor-pointer w-full text-xl"
+        className="font-game cursor-pointer w-full text-2xl"
         size={"lg"}
         asChild
       >
