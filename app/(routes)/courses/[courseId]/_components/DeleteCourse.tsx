@@ -63,6 +63,7 @@ const DeleteCourse = ({
         <Button
           variant="pixelDanger"
           className="text-2xl font-game cursor-pointer"
+          size="lg"
         >
           Delete Course
         </Button>

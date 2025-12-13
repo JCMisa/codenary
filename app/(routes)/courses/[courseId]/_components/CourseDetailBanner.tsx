@@ -6,6 +6,7 @@ import EditCourseTitle from "./EditCourseTitle";
 import DeleteCourse from "./DeleteCourse";
 import EditCourseDescription from "./EditCourseDescription";
 import EnrollButton from "./EnrollButton";
+import { Button } from "@/components/ui/button";
 
 const CourseDetailBanner = ({
   course,
@@ -59,11 +60,19 @@ const CourseDetailBanner = ({
             </div>
 
             <div className="flex flex-col sm:flex-row items-center mt-7 gap-5">
-              {isUserEnrolled === false && (
+              {isUserEnrolled === false ? (
                 <EnrollButton
                   courseId={course.courseId}
                   courseTitle={course.title}
                 />
+              ) : (
+                <Button
+                  className="text-2xl cursor-pointer font-game"
+                  size={"lg"}
+                  variant={"pixel"}
+                >
+                  Continue Learning
+                </Button>
               )}
 
               {isCreatorOrAdmin && (

@@ -4,9 +4,15 @@ import Image from "next/image";
 
 interface CourseStatusProps {
   course: CourseType;
+  userEnrolledCourse: EnrolledCourseType;
+  isUserEnrolled: boolean;
 }
 
-const CourseStatus = async ({ course }: CourseStatusProps) => {
+const CourseStatus = async ({
+  course,
+  userEnrolledCourse,
+  isUserEnrolled,
+}: CourseStatusProps) => {
   const courseChapters = await getCourseChapters(course.courseId);
 
   const getTotal = () => {
@@ -26,6 +32,15 @@ const CourseStatus = async ({ course }: CourseStatusProps) => {
       exercises: totalExercises,
       xp: totalXP,
     };
+  };
+
+  const calculateXpProgress = (currentValue: number, totalValue: number) => {
+    if (currentValue && totalValue) {
+      const percentage = (currentValue * 100) / totalValue;
+      return percentage;
+    }
+
+    return 0;
   };
 
   return (
@@ -50,9 +65,19 @@ const CourseStatus = async ({ course }: CourseStatusProps) => {
         <div className="w-full">
           <h2 className="flex justify-between text-2xl">
             XP Earned{" "}
-            <span className="text-muted-foreground">1/{getTotal().xp}</span>
+            <span className="text-muted-foreground">
+              {isUserEnrolled
+                ? `${userEnrolledCourse.xpEarned} / ${getTotal().xp}`
+                : "N/A"}
+            </span>
           </h2>
-          <Progress value={42} className="mt-2" />
+          <Progress
+            value={calculateXpProgress(
+              userEnrolledCourse.xpEarned,
+              getTotal().xp
+            )}
+            className="mt-2"
+          />
         </div>
       </div>
     </section>

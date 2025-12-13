@@ -31,28 +31,29 @@ const CourseDetails = async ({ params }: CourseDetailsProps) => {
     notFound();
   }
 
-  let isUserEnrolled: boolean = false;
-  const isUserEnrolledResult = await db
-    .select()
-    .from(enrolledCourseTable)
-    .where(
-      and(
-        eq(enrolledCourseTable.courseId, courseId),
-        eq(enrolledCourseTable.userId, user.userId)
-      )
-    );
-  if (isUserEnrolledResult.length > 0) {
-    isUserEnrolled = true;
-  } else {
-    isUserEnrolled = false;
-  }
+  const getUserEnrolledCourse = async () => {
+    const userEnrolledCourseData = await db
+      .select()
+      .from(enrolledCourseTable)
+      .where(
+        and(
+          eq(enrolledCourseTable.courseId, courseId),
+          eq(enrolledCourseTable.userId, user.userId)
+        )
+      );
+
+    return {
+      userEnrolledCourse: userEnrolledCourseData[0],
+      isUserEnrolled: userEnrolledCourseData.length > 0 ? true : false,
+    };
+  };
 
   return (
     <main>
       <CourseDetailBanner
         course={course as CourseType}
         user={user as UserType}
-        isUserEnrolled={isUserEnrolled}
+        isUserEnrolled={(await getUserEnrolledCourse()).isUserEnrolled}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 p-10 md:px-24 lg:px-36 gap-7">
@@ -60,7 +61,13 @@ const CourseDetails = async ({ params }: CourseDetailsProps) => {
           <CourseChapters course={course as CourseType} />
         </div>
         <div>
-          <CourseStatus course={course as CourseType} />
+          <CourseStatus
+            course={course as CourseType}
+            userEnrolledCourse={
+              (await getUserEnrolledCourse()).userEnrolledCourse
+            }
+            isUserEnrolled={(await getUserEnrolledCourse()).isUserEnrolled}
+          />
           <UpgradeToPro />
           <CommunityHelpSection />
         </div>
