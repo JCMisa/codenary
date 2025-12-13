@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeftIcon } from "lucide-react";
 import Image from "next/image";
@@ -6,14 +5,20 @@ import Link from "next/link";
 import EditCourseTitle from "./EditCourseTitle";
 import DeleteCourse from "./DeleteCourse";
 import EditCourseDescription from "./EditCourseDescription";
+import EnrollButton from "./EnrollButton";
 
 const CourseDetailBanner = ({
   course,
   user,
+  isUserEnrolled,
 }: {
   course: CourseType;
   user: UserType;
+  isUserEnrolled: boolean;
 }) => {
+  const isCreatorOrAdmin =
+    course.createdBy === user.email || user.role === "admin";
+
   return (
     <section>
       {course.bannerImage ? (
@@ -35,7 +40,7 @@ const CourseDetailBanner = ({
             </Link>
             <div className="flex items-start">
               <h2 className="text-6xl capitalize">{course.title}</h2>
-              {(course.createdBy === user.email || user.role === "admin") && (
+              {isCreatorOrAdmin && (
                 <EditCourseTitle
                   courseTitle={course.title}
                   courseId={course.courseId}
@@ -45,7 +50,7 @@ const CourseDetailBanner = ({
 
             <div className="flex items-start">
               <p className="text-3xl mt-3">{course.desc}</p>
-              {(course.createdBy === user.email || user.role === "admin") && (
+              {isCreatorOrAdmin && (
                 <EditCourseDescription
                   courseDescription={course.desc}
                   courseId={course.courseId}
@@ -54,11 +59,14 @@ const CourseDetailBanner = ({
             </div>
 
             <div className="flex flex-col sm:flex-row items-center mt-7 gap-5">
-              <Button className="text-2xl " size={"lg"} variant={"pixel"}>
-                Enroll Now
-              </Button>
+              {isUserEnrolled === false && (
+                <EnrollButton
+                  courseId={course.courseId}
+                  courseTitle={course.title}
+                />
+              )}
 
-              {(course.createdBy === user.email || user.role === "admin") && (
+              {isCreatorOrAdmin && (
                 <DeleteCourse
                   courseTitle={course.title}
                   courseId={course.courseId}

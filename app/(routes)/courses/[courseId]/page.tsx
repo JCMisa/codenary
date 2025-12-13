@@ -3,8 +3,8 @@ import CourseDetailBanner from "./_components/CourseDetailBanner";
 import CourseChapters from "./_components/CourseChapters";
 import { getAuthenticatedUser } from "@/lib/utils/getAuthUser";
 import { db } from "@/config/db";
-import { coursesTable } from "@/config/schema";
-import { eq } from "drizzle-orm";
+import { coursesTable, enrolledCourseTable } from "@/config/schema";
+import { and, eq } from "drizzle-orm";
 import CourseStatus from "./_components/CourseStatus";
 import UpgradeToPro from "../../dashboard/_components/UpgradeToPro";
 import CommunityHelpSection from "./_components/CommunityHelpSection";
@@ -14,13 +14,11 @@ interface CourseDetailsProps {
 }
 const CourseDetails = async ({ params }: CourseDetailsProps) => {
   const { courseId } = await params;
-
   if (!courseId) {
     notFound();
   }
 
   const user = await getAuthenticatedUser();
-
   const [course] = await db
     .select()
     .from(coursesTable)
@@ -29,9 +27,24 @@ const CourseDetails = async ({ params }: CourseDetailsProps) => {
   if (!user) {
     redirect("/sign-in");
   }
-
   if (!course) {
     notFound();
+  }
+
+  let isUserEnrolled: boolean = false;
+  const isUserEnrolledResult = await db
+    .select()
+    .from(enrolledCourseTable)
+    .where(
+      and(
+        eq(enrolledCourseTable.courseId, courseId),
+        eq(enrolledCourseTable.userId, user.userId)
+      )
+    );
+  if (isUserEnrolledResult.length > 0) {
+    isUserEnrolled = true;
+  } else {
+    isUserEnrolled = false;
   }
 
   return (
@@ -39,6 +52,7 @@ const CourseDetails = async ({ params }: CourseDetailsProps) => {
       <CourseDetailBanner
         course={course as CourseType}
         user={user as UserType}
+        isUserEnrolled={isUserEnrolled}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 p-10 md:px-24 lg:px-36 gap-7">

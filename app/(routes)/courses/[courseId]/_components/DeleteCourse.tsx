@@ -60,7 +60,10 @@ const DeleteCourse = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="pixelDanger" className="text-2xl font-game">
+        <Button
+          variant="pixelDanger"
+          className="text-2xl font-game cursor-pointer"
+        >
           Delete Course
         </Button>
       </AlertDialogTrigger>

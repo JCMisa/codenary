@@ -12,7 +12,6 @@ declare interface UserType {
   points: number;
   subscription?: string | null;
   role: string;
-  enrolledCourses?: [{ courseId: string }] | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -46,5 +45,14 @@ declare interface CourseChapterType {
   exercises: ExerciseType[];
   position: number;
   createdAt: Date;
+  updatedAt: Date;
+}
+
+declare interface EnrolledCourseType {
+  id: number;
+  courseId: string;
+  userId: string;
+  xpEarned: number;
+  enrolledDate: Date;
   updatedAt: Date;
 }

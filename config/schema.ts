@@ -20,7 +20,6 @@ export const usersTable = pgTable(
     points: integer().default(0),
     subscription: varchar("subscription"),
     role: varchar("role").default("user").notNull(),
-    enrolledCourses: json(),
     createdAt: timestamp("createdAt")
       .$defaultFn(() => /* @__PURE__ */ new Date())
       .notNull(),
@@ -85,3 +84,20 @@ export const courseChaptersTable = pgTable(
     ),
   ]
 );
+
+export const enrolledCourseTable = pgTable("enrollCourse", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  courseId: varchar("courseId")
+    .notNull()
+    .references(() => coursesTable.courseId, { onDelete: "cascade" }),
+  userId: varchar("userId")
+    .notNull()
+    .references(() => usersTable.userId, { onDelete: "cascade" }),
+  xpEarned: integer("xpEarned").notNull(),
+  enrolledDate: timestamp("enrolledDate")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp("updatedAt")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
