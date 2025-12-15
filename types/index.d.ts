@@ -56,3 +56,13 @@ declare interface EnrolledCourseType {
   enrolledDate: Date;
   updatedAt: Date;
 }
+
+declare interface CompletedExerciseType {
+  id: number;
+  exerciseId: string;
+  userId: string;
+  courseId: string;
+  courseChapterId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

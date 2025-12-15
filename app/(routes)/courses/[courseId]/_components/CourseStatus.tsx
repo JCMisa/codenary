@@ -71,13 +71,15 @@ const CourseStatus = async ({
                 : "N/A"}
             </span>
           </h2>
-          <Progress
-            value={calculateXpProgress(
-              userEnrolledCourse.xpEarned,
-              getTotal().xp
-            )}
-            className="mt-2"
-          />
+          {isUserEnrolled && (
+            <Progress
+              value={calculateXpProgress(
+                userEnrolledCourse.xpEarned,
+                getTotal().xp
+              )}
+              className="mt-2"
+            />
+          )}
         </div>
       </div>
     </section>

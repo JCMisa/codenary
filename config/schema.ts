@@ -101,3 +101,29 @@ export const enrolledCourseTable = pgTable("enrollCourse", {
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+export const completedExerciseTable = pgTable(
+  "completedExercise",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    exerciseId: varchar("exerciseId").notNull().unique(),
+    userId: varchar("userId")
+      .notNull()
+      .references(() => usersTable.userId, { onDelete: "cascade" }),
+    courseId: varchar("courseId")
+      .notNull()
+      .references(() => coursesTable.courseId, { onDelete: "cascade" }),
+    courseChapterId: varchar("courseChapterId")
+      .notNull()
+      .references(() => courseChaptersTable.courseChapterId, {
+        onDelete: "cascade",
+      }),
+    createdAt: timestamp("createdAt")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+    updatedAt: timestamp("updatedAt")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [uniqueIndex("exerciseTable_exerciseId_idx").on(table.exerciseId)]
+);
